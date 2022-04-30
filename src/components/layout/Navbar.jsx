@@ -24,7 +24,8 @@ const Navbar = () => {
           </ul>
         </div>
         <Link to="/">
-          <FiGithub size={30} />
+          <FiGithub size={30} className="inline" />
+          <span className="font-bold pl-2">GitHub Finder</span>
         </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
