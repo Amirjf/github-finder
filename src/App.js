@@ -9,7 +9,7 @@ function App() {
   return (
     <div>
       <Navbar />
-      <div className="container mx-auto">
+      <div className="container mx-auto py-10">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
