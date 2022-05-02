@@ -16,6 +16,7 @@ const UserSearch = () => {
     } else {
       //todo search users
       serachUsers(text);
+      setText('');
     }
   };
 

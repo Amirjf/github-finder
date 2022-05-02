@@ -17,7 +17,11 @@ export const GithubProvider = ({ children }) => {
     });
     try {
       setLoading();
-      const { items } = await client.get(`/search/users/?${params}`);
+
+      const {
+        data: { items },
+      } = await client.get(`/search/users?${params}`);
+
       dispatch({
         type: 'GET_USERS',
         payload: items,
