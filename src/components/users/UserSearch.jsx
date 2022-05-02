@@ -3,7 +3,7 @@ import { FiSearch } from 'react-icons/fi';
 import GithubContext from '../../context/github/GithubContext';
 
 const UserSearch = () => {
-  const { users, serachUsers } = useContext(GithubContext);
+  const { users, serachUsers, clearUsers } = useContext(GithubContext);
 
   const [text, setText] = useState('');
 
@@ -12,12 +12,15 @@ const UserSearch = () => {
     e.preventDefault();
 
     if (text === '') {
-      alert('pls enter submit');
+      alert('pls enter something');
     } else {
-      //todo search users
       serachUsers(text);
-      setText('');
     }
+  };
+
+  const handleClear = () => {
+    clearUsers();
+    setText('');
   };
 
   return (
@@ -38,7 +41,7 @@ const UserSearch = () => {
           </div>
         </form>
         {users.length > 0 && (
-          <div className="flex justify-start mt-4">
+          <div className="flex justify-start my-6" onClick={handleClear}>
             <button className="btn btn-ghost p-1">Clear</button>
           </div>
         )}
