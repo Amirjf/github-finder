@@ -7,6 +7,8 @@ const GithubContext = createContext();
 export const GithubProvider = ({ children }) => {
   const initialState = {
     users: [],
+    usersFollowers: [],
+    usersRepos: [],
     loading: false,
   };
   const [state, dispatch] = useReducer(gitHubReducer, initialState);
@@ -17,10 +19,14 @@ export const GithubProvider = ({ children }) => {
     });
     try {
       setLoading();
-
       const {
         data: { items },
       } = await client.get(`/search/users?${params}`);
+
+      // items.map((item) => {
+      //   client.get(`/users/${item.login}/followers`).then((data) => data);
+      // });
+      // const res = await client.get('/users');
 
       dispatch({
         type: 'GET_USERS',
