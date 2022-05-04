@@ -2,26 +2,35 @@ import React, { useContext, useState } from 'react';
 import { FiSearch } from 'react-icons/fi';
 import AlertContext from '../../context/alert/AlertContext';
 import GithubContext from '../../context/github/GithubContext';
+import { serachUsers } from '../../context/github/GithubActions';
 
 const UserSearch = () => {
-  const { users, serachUsers, clearUsers } = useContext(GithubContext);
+  const { users, dispatch } = useContext(GithubContext);
   const { setAlert } = useContext(AlertContext);
 
   const [text, setText] = useState('');
 
   const handleChange = (e) => setText(e.target.value);
-  const handleSubmit = (e) => {
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (text === '') {
       setAlert('pls enter something', 'error');
     } else {
-      serachUsers(text);
+      dispatch({ type: 'SET_LOADING' });
+      const users = await serachUsers(text);
+      dispatch({
+        type: 'GET_USERS',
+        payload: users,
+      });
     }
   };
 
   const handleClear = () => {
-    clearUsers();
+    dispatch({
+      type: 'CLEAR_USERS',
+    });
     setText('');
   };
 
