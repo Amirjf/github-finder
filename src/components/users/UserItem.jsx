@@ -1,15 +1,21 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const UserItem = ({
   user: { login, avatar_url, url, bio, following, followers, public_repos },
 }) => {
   return (
-    //bg-[#07182E]
     <div className="w-52 h-64 bg-neutral rounded-md text-center z-10 shadow-2xl">
-      <div className="flex justify-center mx-auto mt-6">
-        <img className="w-28 h-28 rounded-full" src={avatar_url} alt="Shoes" />
-      </div>
-      <h1 className="text-xl font-semibold mt-6">{login}</h1>
+      <Link to={`/user/${login}`}>
+        <div className="flex justify-center mx-auto mt-6">
+          <img
+            className="w-28 h-28 rounded-full"
+            src={avatar_url}
+            alt="Shoes"
+          />
+        </div>
+        <h1 className="text-xl font-semibold mt-6">{login}</h1>
+      </Link>
       {/* TODO : show flwers and repos */}
       {/* <div className=''>
         <svg

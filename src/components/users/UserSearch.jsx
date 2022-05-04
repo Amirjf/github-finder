@@ -1,9 +1,11 @@
 import React, { useContext, useState } from 'react';
 import { FiSearch } from 'react-icons/fi';
+import AlertContext from '../../context/alert/AlertContext';
 import GithubContext from '../../context/github/GithubContext';
 
 const UserSearch = () => {
   const { users, serachUsers, clearUsers } = useContext(GithubContext);
+  const { setAlert } = useContext(AlertContext);
 
   const [text, setText] = useState('');
 
@@ -12,7 +14,7 @@ const UserSearch = () => {
     e.preventDefault();
 
     if (text === '') {
-      alert('pls enter something');
+      setAlert('pls enter something', 'error');
     } else {
       serachUsers(text);
     }

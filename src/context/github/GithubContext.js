@@ -7,6 +7,7 @@ const GithubContext = createContext();
 export const GithubProvider = ({ children }) => {
   const initialState = {
     users: [],
+    user: {},
     usersFollowers: [],
     usersRepos: [],
     loading: false,
@@ -23,14 +24,23 @@ export const GithubProvider = ({ children }) => {
         data: { items },
       } = await client.get(`/search/users?${params}`);
 
-      // items.map((item) => {
-      //   client.get(`/users/${item.login}/followers`).then((data) => data);
-      // });
-      // const res = await client.get('/users');
-
       dispatch({
         type: 'GET_USERS',
         payload: items,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const getUser = async (login) => {
+    try {
+      setLoading();
+      const data = await client.get(`/users/${login}`);
+
+      dispatch({
+        type: 'GET_USER',
+        payload: data,
       });
     } catch (err) {
       console.log(err);
@@ -50,6 +60,8 @@ export const GithubProvider = ({ children }) => {
       value={{
         loading: state.loading,
         users: state.users,
+        user: state.user,
+        getUser,
         serachUsers,
         clearUsers,
       }}
